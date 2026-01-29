@@ -1,0 +1,28 @@
+task: code-review
+task_type: information
+run_multiple: false
+description: "Code review and analysis"
+timeout: 300
+
+models:
+  - name: mistral-reviewer
+    platform: mistral
+    model: mistral-small-latest
+    provider: mistral
+    complexity: simple
+    parameters:
+      temperature: 0.3
+      max_tokens: 2000
+
+  - name: cerebras-reviewer
+    platform: cerebras
+    model: llama-3.3-70b
+    provider: cerebras
+    complexity: simple
+    parameters:
+      temperature: 0.3
+      max_tokens: 2000
+
+input:
+  required: [prompt, code]
+  optional: [language, focus_areas, severity]

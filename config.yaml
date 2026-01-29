@@ -1,0 +1,30 @@
+# Free Agents Configuration
+# Platform enable/disable and model selection
+
+platforms:
+  cerebras:
+    enabled: true
+    api_key_env: CEREBRAS_API_KEY
+    rate_limit: 1000
+    cost_per_1k_tokens: 0.00
+    models:
+      simple: llama-3.3-70b
+      complex: llama-3.3-70b
+
+  mistral:
+    enabled: true
+    api_key_env: MISTRAL_API_KEY
+    rate_limit: 500000
+    cost_per_1k_tokens: 0.00
+    models:
+      simple: mistral-small-latest
+      complex: mistral-medium-latest
+
+# Global settings
+settings:
+  cache_enabled: true
+  cache_ttl: 3600
+  log_level: info
+  log_to_file: true
+  max_parallel_models: 3
+  default_timeout: 300

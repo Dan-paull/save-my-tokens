@@ -1,0 +1,117 @@
+#!/bin/bash
+# YAML parser for free-agents
+# Uses yq for YAML parsing
+
+# Check if yq is available
+check_yq() {
+    if ! command -v yq &> /dev/null; then
+        echo "ERROR: yq not found. Install with: brew install yq" >&2
+        return 1
+    fi
+    return 0
+}
+
+# Get single YAML value
+yaml_get() {
+    local file=$1
+    local path=$2
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval "$path" "$file" 2>/dev/null || echo ""
+}
+
+# Get all models from task YAML
+yaml_get_models() {
+    local file=$1
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval '.models[] | .name' "$file" 2>/dev/null
+}
+
+# Get model details
+yaml_get_model_details() {
+    local file=$1
+    local model_index=$2
+    local field=$3
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval ".models[$model_index].$field" "$file" 2>/dev/null
+}
+
+# Get platform details from config
+yaml_get_platform() {
+    local config_file=$1
+    local platform=$2
+    local field=$3
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval ".platforms.$platform.$field" "$config_file" 2>/dev/null
+}
+
+# Check if platform is enabled
+yaml_platform_enabled() {
+    local config_file=$1
+    local platform=$2
+
+    local enabled=$(yaml_get_platform "$config_file" "$platform" "enabled")
+    [ "$enabled" = "true" ]
+}
+
+# Get settings value
+yaml_get_setting() {
+    local config_file=$1
+    local setting=$2
+
+    yaml_get "$config_file" ".settings.$setting"
+}
+
+# Count models in task YAML
+yaml_count_models() {
+    local file=$1
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval '.models | length' "$file" 2>/dev/null || echo "0"
+}
+
+# Get all enabled platforms from config
+yaml_get_enabled_platforms() {
+    local config_file=$1
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval '.platforms | to_entries | .[] | select(.value.enabled == true) | .key' "$config_file" 2>/dev/null
+}
+
+# Validate YAML file
+yaml_validate() {
+    local file=$1
+
+    if [ ! -f "$file" ]; then
+        echo "ERROR: File not found: $file" >&2
+        return 1
+    fi
+
+    if ! check_yq; then
+        return 1
+    fi
+
+    yq eval '.' "$file" >/dev/null 2>&1
+    return $?
+}

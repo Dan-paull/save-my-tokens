@@ -1,0 +1,28 @@
+task: coding
+task_type: execute
+run_multiple: false
+description: "Code generation and modifications"
+timeout: 600
+
+models:
+  - name: cerebras-coder
+    platform: cerebras
+    model: llama-3.3-70b
+    provider: cerebras
+    complexity: complex
+    parameters:
+      temperature: 0.7
+      max_tokens: 4000
+
+  - name: mistral-coder
+    platform: mistral
+    model: mistral-small-latest
+    provider: mistral
+    complexity: complex
+    parameters:
+      temperature: 0.7
+      max_tokens: 4000
+
+input:
+  required: [prompt]
+  optional: [files, language, context]

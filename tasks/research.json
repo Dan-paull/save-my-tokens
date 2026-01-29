@@ -1,0 +1,41 @@
+{
+  "task": "research",
+  "task_type": "information",
+  "run_multiple": true,
+  "description": "Web research and information gathering with multiple perspectives",
+  "timeout": 300,
+  "models": [
+    {
+      "name": "cerebras-research",
+      "platform": "cerebras",
+      "model": "llama-3.3-70b",
+      "provider": "cerebras",
+      "complexity": "simple",
+      "parameters": {
+        "temperature": 0.7,
+        "max_tokens": 2000
+      }
+    },
+    {
+      "name": "mistral-research",
+      "platform": "mistral",
+      "model": "mistral-small-latest",
+      "provider": "mistral",
+      "complexity": "simple",
+      "parameters": {
+        "temperature": 0.7,
+        "max_tokens": 2000
+      }
+    }
+  ],
+  "input": {
+    "required": [
+      "prompt"
+    ],
+    "optional": [
+      "context",
+      "max_length",
+      "sources"
+    ]
+  }
+}

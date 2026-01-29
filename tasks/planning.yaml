@@ -1,0 +1,28 @@
+task: planning
+task_type: plan
+run_multiple: true
+description: "Architecture and implementation planning with diverse strategies"
+timeout: 600
+
+models:
+  - name: mistral-architect
+    platform: mistral
+    model: mistral-small-latest
+    provider: mistral
+    complexity: complex
+    parameters:
+      temperature: 0.8
+      max_tokens: 3000
+
+  - name: cerebras-planner
+    platform: cerebras
+    model: llama-3.3-70b
+    provider: cerebras
+    complexity: complex
+    parameters:
+      temperature: 0.8
+      max_tokens: 3000
+
+input:
+  required: [prompt, context]
+  optional: [constraints, preferences]

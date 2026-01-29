@@ -1,0 +1,67 @@
+{
+  "name": "save-my-tokens",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Save Claude tokens by offloading tasks to free LLM APIs - 19x more workflows with the same token budget",
+  "main": "mcp-scripts/mcp-server-streaming.js",
+  "bin": {
+    "save-my-tokens": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node mcp-scripts/mcp-server-streaming.js",
+    "test": "bash mcp-scripts/test-streaming.sh",
+    "install": "bash mcp-scripts/install-streaming.sh"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "claude-code",
+    "token-savings",
+    "cost-optimization",
+    "ai",
+    "agents",
+    "llm",
+    "multi-model",
+    "cerebras",
+    "mistral",
+    "agent-router",
+    "progress-streaming",
+    "real-time",
+    "free-tier"
+  ],
+  "author": "Save My Tokens Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dan-paull/save-my-tokens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dan-paull/save-my-tokens/issues"
+  },
+  "homepage": "https://github.com/Dan-paull/save-my-tokens#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "bin/",
+    "mcp-scripts/mcp-server-streaming.js",
+    "mcp-scripts/install-streaming.sh",
+    "mcp-scripts/test-streaming.sh",
+    "router.sh",
+    "lib/",
+    "providers/",
+    "tasks/",
+    ".env.savemytokens.example",
+    "README.md",
+    "INSTALLATION.md",
+    "CONTRIBUTING.md",
+    "LICENSE"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.3"
+  }
+}

@@ -1,0 +1,69 @@
+# Environment files with actual API keys
+.env.savemytokens
+.env.local
+.env*.local
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Dependencies
+node_modules/
+jspm_packages/
+
+# Cache directories
+.cache/
+cache/
+.npm
+.eslintcache
+.node_repl_history
+.yarn-integrity
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# IDE files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS files
+Thumbs.db
+
+# Security files
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Archive directory
+_archive/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Package manager files (keep lock files for reproducibility)
+# Uncomment if you don't want to track lock files:
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
