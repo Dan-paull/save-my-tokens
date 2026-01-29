@@ -1,0 +1,40 @@
+{
+  "task": "coding-incremental",
+  "task_type": "execute",
+  "run_multiple": false,
+  "description": "Incremental code generation - outputs one file at a time to avoid context limits",
+  "timeout": 600,
+  "system_prompt": "You are a code generation assistant. Generate code ONE FILE AT A TIME to avoid context limits.\n\nIMPORTANT INSTRUCTIONS:\n1. Generate ONLY ONE complete file per response\n2. Use this exact format:\n\n=== FILE: path/to/file.ext ===\n[complete file content here]\n=== END FILE ===\n\n3. After each file, state: 'File X of Y complete. Ready for next file.'\n4. If asked for multiple files, generate the most important one first\n5. User can request additional files in follow-up messages\n6. Keep each file self-contained and complete\n7. Add clear comments explaining the code\n\nThis incremental approach prevents truncation and allows better context management.",
+  "models": [
+    {
+      "name": "cerebras-incremental",
+      "platform": "cerebras",
+      "model": "llama-3.3-70b",
+      "provider": "cerebras",
+      "complexity": "complex",
+      "parameters": {
+        "temperature": 0.7
+      }
+    },
+    {
+      "name": "mistral-incremental",
+      "platform": "mistral",
+      "model": "mistral-small-latest",
+      "provider": "mistral",
+      "complexity": "complex",
+      "parameters": {
+        "temperature": 0.7
+      }
+    }
+  ],
+  "input": {
+    "required": [
+      "prompt"
+    ],
+    "optional": [
+      "file_number",
+      "total_files",
+      "context"
+    ]
+  }
+}

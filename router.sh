@@ -33,6 +33,8 @@ parse_args() {
     TASK_NAME=""
     PROMPT=""
     CONTEXT=""
+    MODE=""
+    PROJECT_DIR=""
     RUN_MULTIPLE_CLI=""
     TIMEOUT_CLI=""
     MAX_TOKENS_CLI=""
@@ -52,6 +54,14 @@ parse_args() {
                 ;;
             --context)
                 CONTEXT="$2"
+                shift 2
+                ;;
+            --mode)
+                MODE="$2"
+                shift 2
+                ;;
+            --project-dir)
+                PROJECT_DIR="$2"
                 shift 2
                 ;;
             --run-multiple)

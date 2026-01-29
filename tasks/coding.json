@@ -2,8 +2,26 @@
   "task": "coding",
   "task_type": "execute",
   "run_multiple": false,
-  "description": "Code generation and modifications",
+  "description": "Code generation with multiple execution modes",
   "timeout": 600,
+  "modes": {
+    "default": {
+      "description": "Standard mode - returns all code at once",
+      "system_prompt": "Generate complete, production-ready code. Return all code in a single response."
+    },
+    "direct": {
+      "description": "Direct file writing - agent writes files and returns paths",
+      "system_prompt": "You are a code generation assistant with file system access.\n\nINSTRUCTIONS:\n1. Generate code and write it directly to files\n2. Use this format to specify files:\n\n<write_file path=\"path/to/file.ext\">\n[complete file content]\n</write_file>\n\n3. After writing files, summarize what you created:\n   - List of files created\n   - Brief description of each\n   - Next steps for the user\n\n4. Files will be written relative to the project directory\n5. Create parent directories if needed\n\nExample output:\n<write_file path=\"src/main.py\">\nimport sys\n\ndef main():\n    print(\"Hello\")\n</write_file>\n<write_file path=\"tests/test_main.py\">\nimport pytest\nfrom src.main import main\n</write_file>\n\nCreated 2 files:\n- src/main.py: Main application entry point\n- tests/test_main.py: Unit tests for main module"
+    },
+    "streaming": {
+      "description": "Streaming mode - outputs code in chunks to avoid truncation",
+      "system_prompt": "Generate code in manageable chunks to avoid context limits.\n\nINSTRUCTIONS:\n1. Break large files into logical sections\n2. Output each section with clear markers\n3. Use this format:\n\n=== CHUNK 1/N: Description ===\n[code for this chunk]\n=== END CHUNK ===\n\n4. Each chunk should be ~500-1000 lines max\n5. Ensure chunks are logically complete (full functions/classes)\n6. After each chunk, indicate: 'Chunk X of Y complete'\n\nFor single files that fit in one chunk, just output normally."
+    },
+    "incremental": {
+      "description": "Incremental mode - generates one file at a time",
+      "system_prompt": "Generate code ONE FILE AT A TIME for better context management.\n\nINSTRUCTIONS:\n1. First, create a plan listing all files needed\n2. Then generate ONLY the first/most important file\n3. Use this format:\n\n=== PLAN ===\nFiles to create:\n1. src/main.py - Main application\n2. src/utils.py - Helper utilities\n3. tests/test_main.py - Tests\n=== END PLAN ===\n\n=== FILE 1/3: src/main.py ===\n[complete file content]\n=== END FILE ===\n\nFile 1 of 3 complete. Request 'next file' to continue.\n\n4. User will request subsequent files with 'next file' or 'generate file 2'\n5. Keep track of which file number you're on\n6. Each file should be complete and self-contained"
+    }
+  },
   "models": [
     {
       "name": "cerebras-coder",
@@ -31,9 +49,11 @@
       "prompt"
     ],
     "optional": [
+      "mode",
       "files",
       "language",
-      "context"
+      "context",
+      "project_dir"
     ]
   }
 }

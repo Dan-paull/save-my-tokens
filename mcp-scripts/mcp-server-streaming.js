@@ -320,6 +320,8 @@ class FreeAgentsServer {
           {
             context: args.context,
             run_multiple: args.run_multiple,
+            mode: args.mode,
+            project_dir: args.project_dir,
             timeout: timeoutMs
           }
         );
@@ -392,6 +394,8 @@ class FreeAgentsServer {
       // Build args
       const args = ['--task', task, '--prompt', prompt];
       if (options.context) args.push('--context', options.context);
+      if (options.mode) args.push('--mode', options.mode);
+      if (options.project_dir) args.push('--project-dir', options.project_dir);
       if (options.run_multiple !== undefined) {
         args.push('--run-multiple', options.run_multiple.toString());
       }
